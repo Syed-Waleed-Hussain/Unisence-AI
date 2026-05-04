@@ -10,7 +10,6 @@ from rag_pipeline import rag_chain
 from langchain_core.messages import HumanMessage, AIMessage
 
 app = FastAPI(title="UniSense AI API")
-
 # Add CORS middleware to allow requests from Streamlit frontend
 app.add_middleware(
     CORSMiddleware,
