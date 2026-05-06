@@ -1,0 +1,39 @@
+Your Checks BEFORE Zipping It Up
+Before you Right-Click > "Compress to ZIP file", make sure to DELETE the following folders and files from the UniSense_AI folder. Sending them these files will only break it on their computers:
+
+Delete the venv folder: Virtual environments are tied to the specific computer they are created on. If you zip this, the project will instantly crash with paths pointing to C:\Users\haris\... on their PCs. They must generate their own venv.
+Delete the __pycache__ folder(s) (if you see any).
+Delete analytics.db (Optional): If you want them to have a fresh dashboard with zero searched questions, delete this database file. The code will automatically re-create an empty analytics.db when they run it.
+Check the .env file: Ensure your GOOGLE_API_KEY (Gemini key) is saved inside .env, otherwise they will need to generate and put their own key inside it.
+Change your IP address back (Crucial): Since we hardcoded your local Wi-Fi IP (192.168.100.86) inside app.py so you could view it on your phone, they will need you to change it back to 127.0.0.1 so it can run securely on their own computers. Go to lines 10-11 in app.py and replace it like this:
+Once the above 5 points are done, go ahead and ZIP the entire UniSense_AI folder!
+
+Step-by-Step Instructions For Your Groupmates
+When they download your .zip file and extract it to their Desktop, tell them to follow these exact steps:
+
+Step 1: Open Terminal and Navigate to the Folder
+Open Command Prompt (cmd) and navigate to the unzipped UniSense_AI directory.
+
+Step 2: Create a fresh Virtual Environment
+They need to build an isolated environment specifically for their computer architecture to avoid package conflicts.
+
+Step 3: Activate the Virtual Environment
+
+(They must see (venv) appear at the start of their command line.)
+
+Step 4: Install all Required Packages
+Thanks to the requirements.txt generated, they won't have to manually type out pip install fastapi uvicorn.... They just run one single command:
+
+(Note for their sanity: Installing libraries like PyAudio on Windows might require Visual Studio C++ Build Tools installed on their machines natively if they see an install error here.)
+
+Step 5: Run the FastAPI Backend Server
+Once everything finishes downloading, they need to boot up the invisible AI bridge holding everything together.
+
+Leave this terminal window completely open. It will say Uvicorn is running on port 8000.
+
+Step 6: Run the Streamlit User Interface
+Open a brand new (second) terminal window, navigate to the same UniSense_AI folder, and activate the virtual environment again using activate.
+
+Finally, launch the shiny UI:
+
+Streamlit will print a URL in the console immediately, and their default system web browser will automatically snap open to http://localhost:8501 revealing the fully integrated UniSense AI platform!
