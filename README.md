@@ -1,108 +1,96 @@
-# 🎓 UniSense AI - Intelligent University Assistant
+# 🎓 UniSense AI
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?style=flat&logo=fastapi&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-1.25%2B-FF4B4B?style=flat&logo=streamlit&logoColor=white)
-![LangChain](https://img.shields.io/badge/LangChain-Integration-green)
-![Gemini](https://img.shields.io/badge/AI-Google_Gemini_2.5_Flash-orange)
+UniSense AI is an intelligent, voice-enabled assistant designed to help students with university affairs at FAST NUCES. It utilizes a Retrieval-Augmented Generation (RAG) pipeline to deliver accurate and context-aware responses.
 
-UniSense AI is a state-of-the-art conversational agent designed for **FAST NUCES**. It utilizes a sophisticated Retrieval-Augmented Generation (RAG) pipeline to accurately answer student queries regarding university policies, fee structures, and curriculum guidelines by reading directly from official university PDF documents.
+## ✨ Features
 
-## ✨ Key Features
-* **Intelligent Document Retrieval:** Uses ChromaDB and HuggingFace embeddings to search through university handbooks instantly.
-* **Conversational Memory:** Remembers chat history and reformulates follow-up questions for flawless context-aware interactions.
-* **Voice Interaction:** Speak to the AI using your microphone (`SpeechRecognition`) and listen to its responses via Text-to-Speech (`gTTS`).
-* **Hallucination Prevention:** Strictly prompted to answer *only* from the retrieved FAST NUCES context.
-* **Decoupled Architecture:** A high-performance backend via FastAPI bridged with an interactive Streamlit frontend.
+- **Conversational AI Interface:** A modern, ChatGPT-style UI built with Streamlit.
+- **Voice Integration (Speech-to-Text & Text-to-Speech):** Speak your questions using your microphone and hear the AI's responses out loud at the click of a button.
+- **Advanced RAG Pipeline:** Powered by LangChain, ChromaDB, HuggingFace Embeddings, and Google's Gemini LLM to process and query university-specific data.
+- **RESTful Backend API:** A robust FastAPI backend bridging the core AI logic to the frontend via HTTP.
+- **Admin Analytics Dashboard:** A password-protected dashboard to track query metrics, frequent keywords, and recent questions using SQLite.
 
-## 🛠️ Tech Stack
-* **LLM Engine:** Google Gemini 2.5 Flash
-* **Orchestration:** LangChain (LCEL)
-* **Vector Database:** ChromaDB
-* **Embeddings:** HuggingFace (`all-MiniLM-L6-v2`)
-* **Backend:** FastAPI, Uvicorn, Pydantic
-* **Frontend:** Streamlit
-* **Voice Capabilities:** PyAudio, SpeechRecognition, gTTS
+## 🛠️ Technology Stack
+
+- **Frontend:** Streamlit
+- **Backend:** FastAPI, Uvicorn
+- **AI & Machine Learning:** LangChain, Google Gemini (LLM), HuggingFace (`all-MiniLM-L6-v2`)
+- **Vector Database:** ChromaDB
+- **Voice Capabilities:** `SpeechRecognition`, `gTTS` (Google Text-to-Speech)
+- **Database (Analytics):** SQLite3
 
 ---
 
-## 🚀 Installation & Setup Guide
+## 🚀 How to Run the Project Locally
 
 ### 1. Prerequisites
-* Python 3.10 or higher.
-* **Windows Users:** To utilize the Voice features, you *must* have [Microsoft Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installed with the **"Desktop development with C++"** workload checked (Required for compiling `PyAudio`).
 
-### 2. Clone the Repository
-```
-git clone [https://github.com/yourusername/UniSense_AI.git](https://github.com/yourusername/UniSense_AI.git)
-cd UniSense_AI
-```
-### 3. Create a Virtual Environment
-```
-python -m venv venv
+Ensure you have **Python 3.10+** installed on your system.
 
-Activate the environment:
+### 2. Setup the Environment
 
-Windows: .\venv\Scripts\activate
+1. Extract the project folder and open a Terminal / Command Prompt inside the folder.
+2. Create an isolated virtual environment:
+   ```bash
+   python -m venv venv
+   ```
+3. Activate the virtual environment:
+   - **Windows:**
+     ```bash
+     venv\Scripts\activate
+     ```
+   - **Mac/Linux:**
+     ```bash
+     source venv/bin/activate
+     ```
 
-Mac/Linux: source venv/bin/activate
-```
-### 4. Install Dependencies
-Make sure your virtual environment is active, then run:
+### 3. Install Dependencies
 
-```
+With the virtual environment activated, run:
+
+```bash
 pip install -r requirements.txt
 ```
-(If you face a PyAudio installation error on Windows, ensure C++ Build Tools are installed, or temporarily disable voice features in app.py).
 
-### 5. Environment Variables
-Create a file named .env in the root directory and add your Google Gemini API key:
+### 4. Environment Variables
 
-```
-GOOGLE_API_KEY="your_api_key_here"
-```
-### 6. Data Ingestion (First Time Only)
-Place your university PDF documents inside the data/ folder, then run the ingestion script to build the vector database:
+Create a file named `.env` in the root directory and add your API keys:
 
+```env
+GOOGLE_API_KEY=your_gemini_api_key_here
 ```
-python ingestion.py
-```
-### 💻 How to Run the Application
-You need two separate terminal windows to run the decoupled system.
 
-Terminal 1: Boot up the Backend Server
-Activate your environment and start the FastAPI server:
+### 5. Start the Application
 
-```
+You will need to open **two separate terminal windows** (ensure the virtual environment is activated in both).
+
+**Terminal 1: Start the Backend (FastAPI)**
+
+```bash
 python api.py
 ```
-The API will start running on http://localhost:8000.
 
-Terminal 2: Launch the Frontend Interface
-Open a new terminal, activate the environment, and start Streamlit:
+_(The backend will start running on port 8000)._
 
-```
+**Terminal 2: Start the Frontend (Streamlit)**
+
+```bash
 streamlit run app.py
 ```
-Your browser will automatically open UniSense AI at http://localhost:8501.
 
-### 📂 Project Structure
+_(The frontend will automatically open in your default web browser at `http://localhost:8501`)._
 
-UniSense_AI/
-│
-├── data/                   # Place official university PDFs here
-├── chroma_db/              # Auto-generated vector database
-├── api.py                  # FastAPI backend server
-├── app.py                  # Streamlit frontend UI
-├── ingestion.py            # PDF data extraction & vectorization script
-├── rag_pipeline.py         # Core LangChain RAG & Memory engine
-├── requirements.txt        # Project dependencies
-└── .env                    # API keys (Not tracked in Git)
-### 👥 Contributors
-Developed for FAST NUCES Academic Project:
+---
 
-Syed Waleed Hussain (Core AI & RAG Pipeline Engine)
+## 📊 Admin Dashboard
 
-Sofia (Data Ingestion & Vector Database Architecture)
+To access the analytics dashboard:
 
-Huzaifa (FastAPI Backend Integration & Streamlit UI)
+1. Open the sidebar in the Streamlit app.
+2. Select **Admin Dashboard**.
+3. Enter the default password: **`admin`**
+4. View metrics like total queries, frequently asked questions, and recent interaction logs.
+
+## 📱 Mobile Testing
+
+Because the frontend and backend are configured to run locally (with FastAPI serving `0.0.0.0` or `127.0.0.1`), you can access the app from your mobile device by typing your computer's local Wi-Fi IP address followed by `:8501` in your phone's browser (Make sure your phone and laptop are on the same Wi-Fi network). Ensure `API_URL` in `app.py` is dynamically set to handle this if you desire remote connections.
