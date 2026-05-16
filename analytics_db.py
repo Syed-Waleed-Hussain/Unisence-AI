@@ -3,7 +3,6 @@ import datetime
 import json
 
 DB_FILE = 'analytics.db'
-
 def init_db():
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
