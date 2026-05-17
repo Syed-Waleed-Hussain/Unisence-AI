@@ -9,14 +9,13 @@ from analytics_db import get_total_queries, get_frequent_words, get_recent_queri
 
 # Configuration
 API_URL = "http://127.0.0.1:8000/chat"
-ADMIN_PASSWORD = "admin"  # In a real app, use st.secrets
+ADMIN_PASSWORD = "admin"  
 
 st.set_page_config(page_title="UniSense AI", page_icon="🎓", layout="centered")
 
 def text_to_speech(text):
     try:
         tts = gTTS(text=text, lang='en')
-        # Create a temp file to save the audio
         fp = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
         fp.close() # Windows requires the file handle to be closed first
         tts.save(fp.name)
@@ -35,7 +34,7 @@ def text_to_speech(text):
         try:
             os.remove(fp.name)
         except PermissionError:
-            pass # Ignore if Windows hasn't fully released the file yet
+            pass 
     except Exception as e:
         st.error(f"TTS Error: {e}")
 
