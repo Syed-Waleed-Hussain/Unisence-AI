@@ -2,6 +2,7 @@
 
 UniSense AI is an intelligent, voice-enabled assistant designed to help students with university affairs at FAST NUCES. It utilizes a Retrieval-Augmented Generation (RAG) pipeline to deliver accurate and context-aware responses.
 
+
 ## ✨ Features
 
 - **Conversational AI Interface:** A modern, ChatGPT-style UI built with Streamlit.
@@ -17,8 +18,7 @@ UniSense AI is an intelligent, voice-enabled assistant designed to help students
 - **AI & Machine Learning:** LangChain, Google Gemini (LLM), HuggingFace (`all-MiniLM-L6-v2`)
 - **Vector Database:** ChromaDB
 - **Voice Capabilities:** `SpeechRecognition`, `gTTS` (Google Text-to-Speech)
-- **Database (Analytics):** SQLite3
-
+- **Database (Analytics):** SQLite3 
 ---
 
 ## 🚀 How to Run the Project Locally
