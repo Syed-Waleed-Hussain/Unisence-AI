@@ -8,7 +8,9 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import AIMessage, HumanMessage
 
+
 load_dotenv()
+
 
 print("Loading embeddings...")
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
