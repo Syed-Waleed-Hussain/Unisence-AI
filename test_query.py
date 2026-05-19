@@ -18,7 +18,6 @@ def run_test_query():
     vector_db = Chroma(persist_directory=DB_PATH, embedding_function=embeddings)
 
     query = "What happend if student's CGPA is lower than 2.0?"
-    
     results = vector_db.similarity_search(query, k=2)
 
     print("\n" + "="*50)
