@@ -24,6 +24,8 @@ def run_test_query():
     print("SEARCH RESULTS")
     print("="*50)
 
+
+    
     if results:
         for i, doc in enumerate(results):
             cleaned_text = " ".join(doc.page_content.split())
