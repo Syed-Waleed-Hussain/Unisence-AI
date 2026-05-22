@@ -8,10 +8,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import AIMessage, HumanMessage
 
-
 load_dotenv()
-
-
 print("Loading embeddings...")
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
@@ -22,7 +19,6 @@ retriever = vector_db.as_retriever(search_kwargs={"k": 3})
 print("Initializing Gemini...")
 llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.3) 
 
-# 1. PICHLA SAWAL SAMAJHNE WALA LOGIC (Standalone Query Generator)
 condense_prompt = ChatPromptTemplate.from_messages([
     ("system", "Given the following chat history and the latest user question, rephrase the user question to be a standalone question. If it is already standalone, return it as is. Do not answer it."),
     MessagesPlaceholder(variable_name="chat_history"),
@@ -31,7 +27,6 @@ condense_prompt = ChatPromptTemplate.from_messages([
 condense_chain = condense_prompt | llm | StrOutputParser()
 
 def get_standalone_query(x):
-    # Agar chat history hai, toh purane sawalon ke reference se sawal poora karo
     if x.get("chat_history"):
         return condense_chain.invoke({"chat_history": x["chat_history"], "input": x["input"]})
     else:
@@ -40,14 +35,12 @@ def get_standalone_query(x):
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
-# 2. MAIN ANSWER WALA PROMPT
 qa_prompt = ChatPromptTemplate.from_messages([
     ("system", "You are 'UniSense AI', an intelligent assistant for university affairs at FAST NUCES.\nUse the following context to answer the question. If you don't know, say so.\n\nContext: {context}"),
     MessagesPlaceholder(variable_name="chat_history"),
     ("human", "{input}")
 ])
 
-# 3. MODERN LCEL PIPELINE (Bina kisi langchain.chains import ke!)
 rag_chain = (
     RunnablePassthrough.assign(
         standalone_query=lambda x: get_standalone_query(x)
@@ -74,7 +67,6 @@ if __name__ == "__main__":
             print("UniSense AI: Good Bye! Turning off.")
             break
 
-        # RAG chain ko run karna
         response = rag_chain.invoke({
             "input": user_query,
             "chat_history": chat_history
@@ -83,7 +75,6 @@ if __name__ == "__main__":
         print(f"\nUniSense AI: {response}\n")
         print("-" * 50)
 
-        # Agli baari ke liye history update karna
         chat_history.extend([
             HumanMessage(content=user_query),
             AIMessage(content=response)
