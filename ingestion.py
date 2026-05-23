@@ -17,7 +17,6 @@ def build_vector_pipeline():
     print("Status: Initializing data ingestion process...")
 
     documents = []
-    # Load all PDF files from the data folder
     for file in os.listdir(DATA_PATH):
         if file.endswith(".pdf"):
             print(f"Status: Loading document: {file}")
@@ -27,7 +26,6 @@ def build_vector_pipeline():
             except Exception as e:
                 print(f"Error loading {file}: {e}")
 
-    # Split text into manageable chunks for the AI
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=800, 
         chunk_overlap=80
@@ -46,7 +44,6 @@ def build_vector_pipeline():
         embedding=embeddings,
         persist_directory=DB_PATH
     )
-    
     print(f"Success: Vector database has been saved to '{DB_PATH}'.")
     print("Status: Pipeline execution completed successfully.")
 
