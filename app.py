@@ -19,8 +19,7 @@ def text_to_speech(text):
         fp = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
         fp.close() # Windows requires the file handle to be closed first
         tts.save(fp.name)
-        
-        # Give streamit the audio element
+    
         with open(fp.name, "rb") as f:
             data = f.read()
             b64 = base64.b64encode(data).decode()
@@ -40,7 +39,6 @@ def text_to_speech(text):
 
 def recognize_speech():
     r = sr.Recognizer()
-    # It attempts to use the default microphone
     with sr.Microphone() as source:
         st.info("Listening... Speak now.")
         audio_data = r.listen(source, timeout=5, phrase_time_limit=15)
@@ -121,8 +119,6 @@ def main():
                             st.markdown(response_text)
                             st.session_state.messages.append({"role": "ai", "content": response_text})
                             
-                            # Log query directly from Streamlit or by Fast API. 
-                            # Since we want to use the analytics DB
                             from analytics_db import log_query
                             log_query(current_input, response_text)
 
