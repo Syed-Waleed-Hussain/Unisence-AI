@@ -25,6 +25,7 @@ def log_query(query: str, response: str):
     conn.commit()
     conn.close()
 
+
 def get_total_queries():
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
@@ -34,7 +35,6 @@ def get_total_queries():
     return total
 
 def get_frequent_words():
-    # Simple word frequency from queries to simulate 'frequently asked questions'
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
     c.execute('SELECT query FROM queries')
