@@ -4,20 +4,16 @@ from pydantic import BaseModel
 from typing import List, Dict
 import uvicorn
 import logging
-
-# We import from rag_pipeline
 from rag_pipeline import rag_chain
 from langchain_core.messages import HumanMessage, AIMessage
 
 app = FastAPI(title="UniSense AI API")
-
-# Add CORS middleware to allow requests from Streamlit frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins (Streamlit on any port)
+    allow_origins=["*"],  
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["*"], 
+    allow_headers=["*"],  
 )
 
 class ChatRequest(BaseModel):
