@@ -7,7 +7,6 @@ os.environ['transformers_logging_level'] = 'error'
 logging.getLogger("transformers").setLevel(logging.ERROR)
 logging.getLogger("langchain").setLevel(logging.ERROR)
 warnings.filterwarnings("ignore")
-
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
@@ -24,8 +23,6 @@ def run_test_query():
     print("SEARCH RESULTS")
     print("="*50)
 
-
-    
     if results:
         for i, doc in enumerate(results):
             cleaned_text = " ".join(doc.page_content.split())
