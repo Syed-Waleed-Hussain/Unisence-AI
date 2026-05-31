@@ -7,7 +7,6 @@ import os
 import base64
 from analytics_db import get_total_queries, get_frequent_words, get_recent_queries
 
-# Configuration
 API_URL = "http://127.0.0.1:8000/chat"
 ADMIN_PASSWORD = "admin"  
 
@@ -64,7 +63,6 @@ def main():
         st.title("🎓 UniSense AI")
         st.caption("Your intelligent FAST NUCES assistant")
 
-        # Download Chat History feature
         if len(st.session_state.messages) > 1:
             chat_text = "UniSense AI Chat History\n\n"
             for msg in st.session_state.messages:
@@ -83,9 +81,6 @@ def main():
             with st.chat_message("user" if msg["role"] == "human" else "assistant"):
                 st.markdown(msg["content"])
 
-        # Create a row for Voice and Text inputs
-        # But st.chat_input is sticky to bottom, buttons aren't.
-        # We can add a voice input button in the sidebar or at the bottom.
         if st.sidebar.button("🎤 Voice Input"):
             voice_text = recognize_speech()
             if voice_text:
