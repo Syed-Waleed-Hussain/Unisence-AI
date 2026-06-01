@@ -56,7 +56,6 @@ rag_chain = (
 # --- LIVE CHAT LOOP ---
 if __name__ == "__main__":
     chat_history = [] 
-
     print("\n" + "="*50)
     print("--- UniSense AI Ready (Type 'exit' to quit) ---")
     print("="*50 + "\n")
@@ -66,7 +65,6 @@ if __name__ == "__main__":
         if user_query.lower() in ['exit', 'quit']:
             print("UniSense AI: Good Bye! Turning off.")
             break
-
         response = rag_chain.invoke({
             "input": user_query,
             "chat_history": chat_history
