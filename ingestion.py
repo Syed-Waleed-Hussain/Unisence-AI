@@ -9,7 +9,6 @@ DATA_PATH = "data/"
 DB_PATH = "chroma_db/"
 
 def build_vector_pipeline():
-    # Verify if the data directory exists and contains files
     if not os.path.exists(DATA_PATH) or not os.listdir(DATA_PATH):
         print(f"Error: Directory '{DATA_PATH}' is empty or does not exist.")
         return
@@ -33,11 +32,9 @@ def build_vector_pipeline():
     chunks = text_splitter.split_documents(documents)
     print(f"Status: Document splitting complete. Total chunks created: {len(chunks)}")
 
-    # Load the embedding model (converts text to numbers)
     print("Status: Loading embedding model. This may take a moment...")
     embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
-    # Create and save the vector database
     print("Status: Generating vector database...")
     vector_db = Chroma.from_documents(
         documents=chunks,
