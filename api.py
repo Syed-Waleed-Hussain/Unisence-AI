@@ -18,7 +18,7 @@ app.add_middleware(
 
 class ChatRequest(BaseModel):
     input: str
-    chat_history: List[Dict[str, str]] = [] # list of {"role": "human"|"ai", "content": "..."}
+    chat_history: List[Dict[str, str]] = [] 
 
 class ChatResponse(BaseModel):
     response: str
@@ -26,7 +26,6 @@ class ChatResponse(BaseModel):
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(req: ChatRequest):
     try:
-        # Reconstruct chat_history objects for Langchain
         lc_chat_history = []
         for msg in req.chat_history:
             if msg.get("role") == "human":
